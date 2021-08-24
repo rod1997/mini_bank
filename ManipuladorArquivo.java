@@ -9,18 +9,14 @@ public class ManipuladorArquivo {
 
 	private int metodo; // 0 ler, 1 cadastrar , 2 modificar, 3 deletar, 4 ler todos registros
 
-	private String arquivo = "usuarios.txt";
-
+	private String nome_arquivo;
 	private String todos_usuarios = "";
-
-	private String user;
-	private String senha;
-
+	
+	private String[] parametrosInsercao;
 	private int ultimo_id_cadastrado;
 
 	private String id_modificar;
 	private int id_modificado;
-
 
 	private String id_deletar;
 	private int id_deletado;
@@ -29,58 +25,93 @@ public class ManipuladorArquivo {
 	private String[] dados_id_procurar;
 
 
-	public String[] lerUmRegistro(String id_procurar)throws IOException{
+	public ManipuladorArquivo(String nome_arquivo){
 
-		this.metodo = 0;
-		this.id_procurar = id_procurar;
-		this.leitor();
-
-		return this.dados_id_procurar;
-
-	}
-	public int cadastrar(String user, String senha)throws IOException{
-
-		this.metodo = 1;
-		this.user = user;
-		this.senha = senha;
-		this.leitor();
-		this.salvarAlteracoes();
-
-		return ultimo_id_cadastrado;
-
-	}
-	public int modificar(String id_modificar)throws IOException{
-
-		this.metodo = 2;
-		this.id_modificar = id_modificar;
-		this.leitor();
-		this.salvarAlteracoes();
-
-		return id_modificado;
-
-	}
-	public int deletar(String id_deletar)throws IOException{
-
-		this.metodo = 3;
-		this.id_deletar = id_deletar;
-		this.leitor();
-		this.salvarAlteracoes();
-
-		return this.id_deletado;
-
+		this.nome_arquivo = nome_arquivo;
 	}
 
+
+	public String[] lerRegistro(String id_procurar)throws IOException{
+
+		try{
+			this.metodo = 0;
+			this.id_procurar = id_procurar;
+			this.leitor();
+			return this.dados_id_procurar;
+
+		}catch(IOException e){
+
+			System.out.println(e);
+			String[] retornoVazio = {};
+			return retornoVazio;
+		}	
+	}
+	public int inserirRegistro(String[] parametros)throws IOException{
+
+		try{
+			this.metodo = 1;
+			this.parametrosInsercao = parametros;
+			this.leitor();
+			this.salvarAlteracoes();
+
+			return ultimo_id_cadastrado;
+
+		}catch(IOException e){
+
+			System.out.println(e);
+			return 0;
+		}	
+	}
+	public int modificarRegistro(String[] parametros, String id_modificar)throws IOException{
+
+		try{		
+			this.metodo = 2;
+			this.parametrosInsercao = parametros;
+			this.id_modificar = id_modificar;
+			this.leitor();
+			this.salvarAlteracoes();
+
+			return id_modificado;
+
+		}catch(IOException e){
+
+			System.out.println(e);
+			return 0;
+		}	
+	}
+	public int deletarRegistro(String id_deletar)throws IOException{
+
+		try{	
+			this.metodo = 3;
+			this.id_deletar = id_deletar;
+			this.leitor();
+			this.salvarAlteracoes();
+
+			return this.id_deletado;
+
+		}catch(IOException e){
+
+			System.out.println(e);
+			return 0;
+		}	
+	}
 	public String Ler_todos()throws IOException{
-		this.metodo = 4;
-		this.leitor();
 
-		return this.todos_usuarios;
+		try{
+			this.metodo = 4;
+			this.leitor();
 
+			return this.todos_usuarios;
+
+		}catch(IOException e){
+
+			System.out.println(e);
+			return "";
+		}	
 	}
-		
 	private void leitor() throws IOException {
 
-		BufferedReader BufferLeitura = new BufferedReader(new FileReader(this.arquivo));
+		BufferedReader BufferLeitura = new BufferedReader(new FileReader(this.nome_arquivo));
 
 		if(this.metodo == 0){
 
@@ -122,8 +153,13 @@ public class ManipuladorArquivo {
 					break;
 				}
 			}	
-			
-			this.todos_usuarios += Integer.toString(this.ultimo_id_cadastrado + 1) + "__" + this.user + "__" + this.senha ;
+			int numeroDeParamentros = this.parametrosInsercao.length;
+			String textoDeinsercao = "";
+
+			for(int c =0 ; c < numeroDeParamentros ; c++ ){
+				textoDeinsercao += "__" + parametrosInsercao[c];
+			}
+			this.todos_usuarios += Integer.toString(this.ultimo_id_cadastrado + 1) + textoDeinsercao;
 		
 		}else if(this.metodo == 2){
 
@@ -141,7 +177,15 @@ public class ManipuladorArquivo {
 
 				if(id == id_modificar){
 
-					this.todos_usuarios +=  dadoslinha[0] + "__" + this.user + "__" + this.senha +  "\n";
+
+					int numeroDeParamentros = this.parametrosInsercao.length;
+					String textoDeinsercao = "";
+		
+					for(int c =0 ; c < numeroDeParamentros ; c++ ){
+						textoDeinsercao += "__" + parametrosInsercao[c];
+					}
+
+					this.todos_usuarios +=  dadoslinha[0] +  textoDeinsercao + "\n";
 					this.id_modificado = Integer.parseInt(dadoslinha[0]);
 
 				}else{
@@ -193,7 +237,7 @@ public class ManipuladorArquivo {
 
 	private void salvarAlteracoes() throws IOException {
 
-		BufferedWriter BufferEscrita = new BufferedWriter(new FileWriter(this.arquivo,false));
+		BufferedWriter BufferEscrita = new BufferedWriter(new FileWriter(this.nome_arquivo,false));
 		
 		BufferEscrita.write(this.todos_usuarios);
 		BufferEscrita.flush();
