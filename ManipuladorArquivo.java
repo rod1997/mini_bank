@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class ManipuladorArquivo {
 
-	private int metodo; // 0 ler, 1 cadastrar , 2 modificar, 3 deletar, 4 ler todos registros
+	private int metodo; // 0 ler, 1 cadastrar , 2 modificar, 3 deletar, 4 ler todos registros, 5 buscar registros
 
 	private String nome_arquivo;
 	private String todos_usuarios = "";
@@ -24,12 +24,13 @@ public class ManipuladorArquivo {
 	private String id_procurar;
 	private String[] dados_id_procurar;
 
+	private String[] retorno_busca;
+
 
 	public ManipuladorArquivo(String nome_arquivo){
 
 		this.nome_arquivo = nome_arquivo;
 	}
-
 
 	public String[] lerRegistro(String id_procurar)throws IOException{
 
@@ -109,6 +110,22 @@ public class ManipuladorArquivo {
 			return "";
 		}	
 	}
+	public String[] buscarRegistros(String busca)throws IOException{
+
+		try{
+			this.metodo = 5;
+			this.busca = busca;
+			this.leitor();
+
+			return this.retorno_busca;
+
+		}catch(IOException e){
+
+			System.out.println(e);
+			return [];
+		}
+	}
+
 	private void leitor() throws IOException {
 
 		BufferedReader BufferLeitura = new BufferedReader(new FileReader(this.nome_arquivo));
@@ -218,16 +235,32 @@ public class ManipuladorArquivo {
 				}
 			}	
 
-		}else if(this.metodo == 4){
+		}else if(this.metodo == 5){
+
+			while(true){
+
+				String linha = BufferLeitura.readLine();
+				if( linha == null){
+					break;
+				}			
+				//metodo contains() verifica se string tem determinados caracteres
+				if(linha.contains(this.busca)){
+					this.todos_usuarios += linha + "\n";
+				}
+			}	
+		
+		}else if(this.metodo == 5){
 
 			while(true){
 
 				String linha = BufferLeitura.readLine();
 
-				if( linha == null){
-					break;
+				if( linha == this.buscar_registros){
+
+					dados_busca = linha + ";";
+
 				}
-				this.todos_usuarios += linha + "\n";
+				this.retorno_busca = dados_busca.split(";");
 			}	
 		}
 		
