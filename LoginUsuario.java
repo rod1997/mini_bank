@@ -1,36 +1,48 @@
+import java.io.IOException;
+
 public class LoginUsuario {
 
     private String user;
     private String senha;
     private int retornoLogin;
+    private String nome_arquivo = "/home/rodrigo/aprendendo_java/arquivosTxt/usuarios.txt";
 
-    public LoginUsuario(String user, String senha){
+    public LoginUsuario(String user, String senha)throws IOException{
 
         this.user = user;
         this.senha  = senha;
-        this.carregaDadosUsuario()
+        this.carregaDadosUsuario();
     }
 
-    public getRetornoLogin(){
+    public int getRetornoLogin(){
         return this.retornoLogin;
     }
 
     private void carregaDadosUsuario()throws IOException{
 
-        ManipuladorArquivo objArquivo = new ManipuladorArquivo("usuarios.txt");
-        dadosUsuario = objArquivo.buscarRegistros(this.user);
+        int coluna_busca = 1;
+        String busca = this.user;
+        String arquivo = this.nome_arquivo;
 
-        if(dadosUsuario.length < 1){
-            this.retornoLogin = 0;
+        String[][] dadosUsuario = new BuscaRegistrosBaseDados(coluna_busca, busca, arquivo).getResultados();
 
-        }else if(this.user === dadosUsuario[1] && this.senha === dadosUsuario[3]){
-           this.retornoLogin = dadosUsuario[0];
+        if(dadosUsuario[0][0] != "" || dadosUsuario[0][0] == null){
 
+            String usuario = dadosUsuario[0][1];
+            String senha = dadosUsuario[0][2];
+        
+            //System.out.println(usuario);
+
+            if(usuario.equals(this.user)  && senha.equals(this.senha) ){
+            this.retornoLogin =  Integer.parseInt(dadosUsuario[0][0]);
+
+            }else{
+                this.retornoLogin = 0;
+            }
         }else{
             this.retornoLogin = 0;
-        }
+        }    
 
     }
-
 
 }

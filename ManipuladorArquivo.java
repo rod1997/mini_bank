@@ -24,7 +24,8 @@ public class ManipuladorArquivo {
 	private String id_procurar;
 	private String[] dados_id_procurar;
 
-	private String[] retorno_busca;
+	private String[][] retorno_busca;
+	private String busca;
 
 
 	public ManipuladorArquivo(String nome_arquivo){
@@ -110,7 +111,7 @@ public class ManipuladorArquivo {
 			return "";
 		}	
 	}
-	public String[] buscarRegistros(String busca)throws IOException{
+	public String[][] buscarRegistros(String busca)throws IOException{
 
 		try{
 			this.metodo = 5;
@@ -122,7 +123,8 @@ public class ManipuladorArquivo {
 		}catch(IOException e){
 
 			System.out.println(e);
-			return [];
+			String[][] retornoVazio = {};
+			return retornoVazio;
 		}
 	}
 
@@ -235,7 +237,7 @@ public class ManipuladorArquivo {
 				}
 			}	
 
-		}else if(this.metodo == 5){
+		}else if(this.metodo == 4){
 
 			while(true){
 
@@ -243,25 +245,41 @@ public class ManipuladorArquivo {
 				if( linha == null){
 					break;
 				}			
-				//metodo contains() verifica se string tem determinados caracteres
-				if(linha.contains(this.busca)){
-					this.todos_usuarios += linha + "\n";
-				}
+				this.todos_usuarios += linha + "\n";
+				
 			}	
 		
 		}else if(this.metodo == 5){
+
+			String dados_busca = "";
 
 			while(true){
 
 				String linha = BufferLeitura.readLine();
 
-				if( linha == this.buscar_registros){
+				if( linha == null){
+					break;
 
-					dados_busca = linha + ";";
+				}else if( linha.contains(this.busca)){
+
+					dados_busca += linha + ";";
 
 				}
-				this.retorno_busca = dados_busca.split(";");
 			}	
+			String[] arrayLinha =  dados_busca.split(";");
+			String[] arrarDadosLinha = arrayLinha[0].split("__");
+
+			String[][] h_dados = new String[arrayLinha.length * 2][arrarDadosLinha.length * 2];
+
+			for(int c=0 ; c < arrayLinha.length ; c++ ){
+
+				String[] dadosLinha = arrayLinha[c].split("__");
+				for(int d=0; d< arrarDadosLinha.length; d++){
+					h_dados[c][d] = dadosLinha[d];
+				}	
+			}
+			this.retorno_busca = h_dados;
+		
 		}
 		
 		BufferLeitura.close();

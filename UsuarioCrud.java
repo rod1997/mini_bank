@@ -5,6 +5,7 @@ public class UsuarioCrud {
     private String id;
     private String user;
     private String senha;
+    private String nome_arquivo = "/home/rodrigo/aprendendo_java/arquivosTxt/usuarios.txt";
 
     public UsuarioCrud(String user, String senha, String id){
 
@@ -13,21 +14,17 @@ public class UsuarioCrud {
         this.id = id;
 
     }
-    public Boolean logar() throws IOException{
+    public String[] lerDadosUsuario() throws IOException{
 
-        ManipuladorArquivo objetoArquivo = new ManipuladorArquivo("usuarios.txt");
+        ManipuladorArquivo objetoArquivo = new ManipuladorArquivo(this.nome_arquivo);
 
         String[] dadosUsuario = objetoArquivo.lerRegistro(this.id);
 
-        if(dadosUsuario[1] == this.user && dadosUsuario[1] == this.senha){
-
-            return true;
-        }
-        return false;
+        return dadosUsuario;
     }
     public Boolean cadastrar()throws IOException{
 
-        ManipuladorArquivo objetoArquivo = new ManipuladorArquivo("usuarios.txt");
+        ManipuladorArquivo objetoArquivo = new ManipuladorArquivo(this.nome_arquivo);
         String[] dadosUsuarioCadastro = {
                                             this.user,
                                             this.senha
@@ -41,7 +38,7 @@ public class UsuarioCrud {
     }
     public Boolean modificar()throws IOException{
 
-        ManipuladorArquivo objetoArquivo = new ManipuladorArquivo("usuarios.txt");
+        ManipuladorArquivo objetoArquivo = new ManipuladorArquivo(this.nome_arquivo);
         String[] dadosUsuarioCadastro = {
                                             this.user,
                                             this.senha
@@ -55,7 +52,7 @@ public class UsuarioCrud {
     }
     public Boolean deletar()throws IOException{
 
-        ManipuladorArquivo objetoArquivo = new ManipuladorArquivo("usuarios.txt");
+        ManipuladorArquivo objetoArquivo = new ManipuladorArquivo(this.nome_arquivo);
         int idRetornado = objetoArquivo.deletarRegistro(this.id);
 
         if(idRetornado != 0){

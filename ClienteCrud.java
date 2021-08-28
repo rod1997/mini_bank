@@ -4,21 +4,18 @@ public class ClienteCrud {
 
     private String id;
     private String nome;
-    private String id_conta;
-    private String id_usuario;
+    private String nome_arquivo = "/home/rodrigo/aprendendo_java/arquivosTxt/clientes.txt";
 
-    public ClienteCrud(String id, String id_conta, String id_usuario, String nome){
+
+    public ClienteCrud(String id, String nome){
 
         this.id = id;   
-        this.id_conta = id_conta;
-        this.id_usuario = id_usuario;
         this.nome = nome;
-
 
     }
     public String[] lerDadosCliente() throws IOException{
 
-        ManipuladorArquivo objetoArquivo = new ManipuladorArquivo("clientes.txt");
+        ManipuladorArquivo objetoArquivo = new ManipuladorArquivo(this.nome_arquivo);
 
         String[] dadosUsuario = objetoArquivo.lerRegistro(this.id);
 
@@ -26,10 +23,8 @@ public class ClienteCrud {
     }
     public Boolean cadastrar()throws IOException{
 
-        ManipuladorArquivo objetoArquivo = new ManipuladorArquivo("clientes.txt");
+        ManipuladorArquivo objetoArquivo = new ManipuladorArquivo(this.nome_arquivo);
         String[] dadosClienteCadastro = {
-                                            this.id_conta,
-                                            this.id_usuario,
                                             this.nome 
                                         };
         int idRetornado = objetoArquivo.inserirRegistro(dadosClienteCadastro);
@@ -41,13 +36,11 @@ public class ClienteCrud {
     }
     public Boolean modificar()throws IOException{
 
-        ManipuladorArquivo objetoArquivo = new ManipuladorArquivo("clientes.txt");
-        String[] dadosClienteCadastro = {
-                                            this.id_conta ,
-                                            this.id_usuario,
+        ManipuladorArquivo objetoArquivo = new ManipuladorArquivo(this.nome_arquivo);
+        String[] dadosClienteModificar = {
                                             this.nome 
                                         };
-        int idRetornado = objetoArquivo.modificarRegistro(dadosClienteCadastro, this.id);
+        int idRetornado = objetoArquivo.modificarRegistro(dadosClienteModificar, this.id);
 
         if(idRetornado != 0){
             return true;
@@ -56,7 +49,7 @@ public class ClienteCrud {
     }
     public Boolean deletar()throws IOException{
 
-        ManipuladorArquivo objetoArquivo = new ManipuladorArquivo("clientes.txt");
+        ManipuladorArquivo objetoArquivo = new ManipuladorArquivo(this.nome_arquivo);
         int idRetornado = objetoArquivo.deletarRegistro(this.id);
 
         if(idRetornado != 0){
