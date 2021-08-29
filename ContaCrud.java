@@ -32,29 +32,29 @@ public class ContaCrud{
 
         return dadosContas;
     }
-    public Boolean cadastroConta()throws IOException{
+    public int cadastroConta()throws IOException{
         
         ManipuladorArquivo objArquivo = new ManipuladorArquivo(this.nome_arquivo);
 
         String[] parametrosInsercao = {
-            this.saldo,
+            this.id_usuario,
             this.id_cliente,
-            this.id_usuario
+            this.saldo
         };
 
         int retornoCadastro = objArquivo.inserirRegistro(parametrosInsercao);
 
         if(retornoCadastro != 0){
-            return true;
+            return retornoCadastro;
         }
-        return false;
+        return 0;
     }
     public Boolean modificarConta()throws IOException{
         ManipuladorArquivo objArquivo = new ManipuladorArquivo(this.nome_arquivo);
 
         String[] parametrosInsercao = {
-            this.id_cliente,
-            this.id_usuario
+            this.id_usuario,
+            this.id_cliente
         };
         int retornoCadastro = objArquivo.modificarRegistro(parametrosInsercao, this.id);
 

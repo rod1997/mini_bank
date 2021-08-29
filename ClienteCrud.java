@@ -21,7 +21,7 @@ public class ClienteCrud {
 
         return dadosUsuario;
     }
-    public Boolean cadastrar()throws IOException{
+    public int cadastrar()throws IOException{
 
         ManipuladorArquivo objetoArquivo = new ManipuladorArquivo(this.nome_arquivo);
         String[] dadosClienteCadastro = {
@@ -30,9 +30,9 @@ public class ClienteCrud {
         int idRetornado = objetoArquivo.inserirRegistro(dadosClienteCadastro);
 
         if(idRetornado != 0){
-            return true;
+            return idRetornado;
         }
-        return false;
+        return 0;
     }
     public Boolean modificar()throws IOException{
 

@@ -22,7 +22,7 @@ public class UsuarioCrud {
 
         return dadosUsuario;
     }
-    public Boolean cadastrar()throws IOException{
+    public int cadastrar()throws IOException{
 
         ManipuladorArquivo objetoArquivo = new ManipuladorArquivo(this.nome_arquivo);
         String[] dadosUsuarioCadastro = {
@@ -32,9 +32,9 @@ public class UsuarioCrud {
         int idRetornado = objetoArquivo.inserirRegistro(dadosUsuarioCadastro);
 
         if(idRetornado != 0){
-            return true;
+            return idRetornado;
         }
-        return false;
+        return 0;
     }
     public Boolean modificar()throws IOException{
 

@@ -162,14 +162,15 @@ public class ManipuladorArquivo {
 
 				linha = BufferLeitura.readLine();
 
-				if(linha != null){
+				if(linha == null || linha.equals("")) {
+					break;
+
+				}else{
 					String[] dadoslinha = linha.split("__");
 
-					this.ultimo_id_cadastrado = Integer.parseInt(dadoslinha[0]);
+					this.ultimo_id_cadastrado = Integer.parseInt(dadoslinha[0]) + 1;
 					this.todos_usuarios +=  linha + "\n";	
 				
-				}else{
-					break;
 				}
 			}	
 			int numeroDeParamentros = this.parametrosInsercao.length;
@@ -178,7 +179,7 @@ public class ManipuladorArquivo {
 			for(int c =0 ; c < numeroDeParamentros ; c++ ){
 				textoDeinsercao += "__" + parametrosInsercao[c];
 			}
-			this.todos_usuarios += Integer.toString(this.ultimo_id_cadastrado + 1) + textoDeinsercao;
+			this.todos_usuarios += Integer.toString(this.ultimo_id_cadastrado) + textoDeinsercao;
 		
 		}else if(this.metodo == 2){
 
