@@ -15,7 +15,7 @@ public class ModificarRegistrosBaseDados {
     private int[] colunas_modificar;
     private String[] dados_modificacao;
 
-    private String todos_dados;
+    private String todos_dados = "";
     private Boolean falha = true;
 
     ModificarRegistrosBaseDados(String nome_arquivo ,int[] colunas_modificar ,String[] dados_modificacao ,int id_modificar){
@@ -42,9 +42,12 @@ public class ModificarRegistrosBaseDados {
         BufferedReader BufferLeitura = new BufferedReader(new FileReader(this.nome_arquivo));
         String linha = "";
 
-        while(linha != null){
+        while(true){
 
             linha = BufferLeitura.readLine();
+            if(linha == null)
+                break;
+
             String[] dadoslinha = linha.split("__");
 
             int numeroDeModificacao = this.dados_modificacao.length;
@@ -63,18 +66,30 @@ public class ModificarRegistrosBaseDados {
             if(id == id_modificar){
 
                 String textoDeinsercao = "";
-    
-                for(int c = 1  ; c < numeroDeColunasTabela ; c++ ){
 
-                    if( c == this.colunas_modificar[c]){
-                        textoDeinsercao += "__" + dados_modificacao[c];
+                for(int c = 1  ; c <= numeroDeColunasTabela ; c++ ){
+
+                    boolean coluna_achada = false;
+
+                    for( int indice_coluna :  this.colunas_modificar){
+                        int contador = 0;
+
+                        if(indice_coluna == c ){
+                            textoDeinsercao += "__" + dados_modificacao[contador];
+                            coluna_achada = true;
+                            break;
+                        }    
+                        contador++;    
                     }
-                    textoDeinsercao += "__" + dadoslinha[c];
+                    if(!coluna_achada)
+                        textoDeinsercao += "__" + dadoslinha[c];
                 }
-
+                
                 this.todos_dados +=  dadoslinha[0] +  textoDeinsercao + "\n";
                 this.id_modificado = Integer.parseInt(dadoslinha[0]);
                 this.falha = false;
+
+
             }else{
                 this.todos_dados +=  linha + "\n";
             }	
@@ -89,7 +104,9 @@ public class ModificarRegistrosBaseDados {
             BufferEscrita.write(this.todos_dados);
             BufferEscrita.flush();
             BufferEscrita.close();
-        }    
+        } 
+        
+        //System.out.println(this.todos_dados);
 	
 	}
 }

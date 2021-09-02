@@ -30,6 +30,8 @@ public class TransferirDinheiro {
             modificaSaldoConta(this.id_conta_origem, Integer.toString(valor_diminuir_conta_origem));
             modificaSaldoConta(this.id_conta_destino, Integer.toString(valor_acrescentar_conta_destino));
 
+            return true;
+
         }
         return false;
     }
@@ -54,5 +56,4 @@ public class TransferirDinheiro {
         }
         return false;
     }
-
 }

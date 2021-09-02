@@ -32,12 +32,18 @@ public class BancoZeroTaxa {
         if(id_usuario != 0){
 
             String[] dadosConta = new PegaDadosParaInterfaceInicial(Integer.toString(id_usuario)).getDadosInterface();
-            System.out.println("\nOlá, "+ dadosConta[2]);
-            NumberFormat z = NumberFormat.getCurrencyInstance();
-            System.out.println("Seu saldo: "+ z.format(Integer.parseInt(dadosConta[3])));
+            //System.out.println("\nOlá, "+ dadosConta[2]);
+            //NumberFormat z = NumberFormat.getCurrencyInstance();
+            //System.out.println("Seu saldo: "+ z.format(Integer.parseInt(dadosConta[3])));
+            String id_conta = dadosConta[0];
+            String id_cliente = dadosConta[1];
+            String nome_cliente = dadosConta[2];
+            String saldo = dadosConta[3];
+
+            new MenuInicial(Integer.toString(id_usuario), id_cliente, id_conta, saldo, nome_cliente).MenuInterativo();
 
         }else{
-            System.out.println("Usuario ou senha incorretos!");
+           print("Usuario ou senha incorretos!");
 
         }
     }
