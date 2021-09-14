@@ -1,5 +1,7 @@
 import java.io.IOException;
 
+import classes_acoes_arquivos.BuscaRegistrosBaseDados;
+
 public class LoginUsuario {
 
     private String user;

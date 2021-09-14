@@ -1,24 +1,20 @@
+package classes_acoes_arquivos;
+
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 
-public class ModificarRegistrosBaseDados {
+public class ModificarRegistrosBaseDados extends SalvarAlteracoes{
 
     private int id_modificar;
     private int id_modificado;
-
-    private String nome_arquivo;
 
     // o primerio indice de "colunas_modificar" corresponde a modificacao para o valor do primeiro de "dados_modificacao ""
     private int[] colunas_modificar;
     private String[] dados_modificacao;
 
-    private String todos_dados = "";
-    private Boolean falha = true;
 
-    ModificarRegistrosBaseDados(String nome_arquivo ,int[] colunas_modificar ,String[] dados_modificacao ,int id_modificar){
+    public ModificarRegistrosBaseDados(String nome_arquivo ,int[] colunas_modificar ,String[] dados_modificacao ,int id_modificar){
 
         this.nome_arquivo   = nome_arquivo;
         this.colunas_modificar = colunas_modificar;
@@ -96,17 +92,17 @@ public class ModificarRegistrosBaseDados {
         }
         BufferLeitura.close();
     }
-    private void salvarAlteracoes() throws IOException {
-
-        if(!this.falha){
-            BufferedWriter BufferEscrita = new BufferedWriter(new FileWriter(this.nome_arquivo,false));
-            
-            BufferEscrita.write(this.todos_dados);
-            BufferEscrita.flush();
-            BufferEscrita.close();
-        } 
-        
-        //System.out.println(this.todos_dados);
-	
-	}
+    //private void salvarAlteracoes() throws IOException {
+//
+    //    if(!this.falha){
+    //        BufferedWriter BufferEscrita = new BufferedWriter(new FileWriter(this.nome_arquivo,false));
+    //        
+    //        BufferEscrita.write(this.todos_dados);
+    //        BufferEscrita.flush();
+    //        BufferEscrita.close();
+    //    } 
+    //    
+    //    //System.out.println(this.todos_dados);
+	//
+	//}
 }

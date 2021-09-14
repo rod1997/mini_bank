@@ -2,9 +2,18 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.text.NumberFormat;
 
+import classes_acoes_arquivos.*;
+
+
+
 public class BancoZeroTaxa {
         
     public static void main(String[] args) throws IOException{
+
+        DeletarRegistroBaseDados obj = new DeletarRegistroBaseDados("ads",1);
+        String[] aa = {"adsda","dasdasda","aaaa"};
+        AdicionarRegistroBaseDados obj2 = new AdicionarRegistroBaseDados("ads",aa);
+
         System.out.println("Olá, Bem Vindo Ao nosso Banco!");
         String opcao = inputUsuario("[1] Acessar conta\n[2] Criar conta\n");
 
