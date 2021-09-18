@@ -14,7 +14,7 @@ public class ModificarRegistrosBaseDados extends SalvarAlteracoes{
     private String[] dados_modificacao;
 
 
-    public ModificarRegistrosBaseDados(String nome_arquivo ,int[] colunas_modificar ,String[] dados_modificacao ,int id_modificar){
+    public ModificarRegistrosBaseDados(int id_modificar, int[] colunas_modificar ,String[] dados_modificacao ,String nome_arquivo){
 
         this.nome_arquivo   = nome_arquivo;
         this.colunas_modificar = colunas_modificar;
@@ -30,7 +30,7 @@ public class ModificarRegistrosBaseDados extends SalvarAlteracoes{
             salvarAlteracoes();
             return id_modificado;
         }
-        return 0;
+        return -1;
 
     }
     private void modificarRegistro()throws IOException{
@@ -92,17 +92,4 @@ public class ModificarRegistrosBaseDados extends SalvarAlteracoes{
         }
         BufferLeitura.close();
     }
-    //private void salvarAlteracoes() throws IOException {
-//
-    //    if(!this.falha){
-    //        BufferedWriter BufferEscrita = new BufferedWriter(new FileWriter(this.nome_arquivo,false));
-    //        
-    //        BufferEscrita.write(this.todos_dados);
-    //        BufferEscrita.flush();
-    //        BufferEscrita.close();
-    //    } 
-    //    
-    //    //System.out.println(this.todos_dados);
-	//
-	//}
 }

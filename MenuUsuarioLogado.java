@@ -1,22 +1,8 @@
 import java.text.NumberFormat;
 import java.io.IOException;
 
-public class MenuInicial {
-    
-    private String id_usuario;
-    private String id_cliente;
-    private String id_conta;
-    private String saldo;
-    private String nome_cliente;
+public class MenuUsuarioLogado {
 
-    MenuInicial( String id_usuario, String id_cliente, String id_conta, String saldo, String nome_cliente){
-
-        this.id_usuario = id_usuario;
-        this.id_cliente = id_cliente;
-        this.id_conta = id_conta;
-        this.saldo = saldo;
-        this.nome_cliente = nome_cliente;
-    }
     public void MenuInterativo()throws IOException{
 
         System.out.println("Bem vindo ao banco");

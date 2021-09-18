@@ -20,8 +20,5 @@ public abstract class SalvarAlteracoes {
             BufferEscrita.flush();
             BufferEscrita.close();
         } 
-        
-        //System.out.println(this.todos_dados);
-	
 	}
 }

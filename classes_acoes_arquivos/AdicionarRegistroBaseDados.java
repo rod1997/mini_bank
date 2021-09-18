@@ -10,7 +10,7 @@ public class AdicionarRegistroBaseDados extends SalvarAlteracoes{
     private int ultimo_id_cadastrado;
     
 
-    public AdicionarRegistroBaseDados(String nome_arquivo ,String[] dados_insercao ){
+    public AdicionarRegistroBaseDados(String[] dados_insercao,String nome_arquivo ){
 
         this.nome_arquivo   = nome_arquivo;
         this.dados_insercao = dados_insercao;
@@ -25,7 +25,7 @@ public class AdicionarRegistroBaseDados extends SalvarAlteracoes{
             salvarAlteracoes();
             return this.ultimo_id_cadastrado;
         }
-        return 0;
+        return -1;
 
     }
     private void adicionarRegistro()throws IOException{

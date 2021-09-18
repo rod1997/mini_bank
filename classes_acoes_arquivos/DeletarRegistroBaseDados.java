@@ -9,7 +9,7 @@ public class DeletarRegistroBaseDados extends SalvarAlteracoes {
     private int id_deletar;
     private int id_deletado;
 
-    public DeletarRegistroBaseDados(String nome_arquivo ,int id_deletar){
+    public DeletarRegistroBaseDados(int id_deletar,String nome_arquivo ){
 
         this.nome_arquivo   = nome_arquivo;
         this.id_deletar  = id_deletar;
@@ -24,7 +24,7 @@ public class DeletarRegistroBaseDados extends SalvarAlteracoes {
             salvarAlteracoes();
             return this.id_deletado;
         }
-        return 0;
+        return -1;
 
     }
     private void deletarRegistro()throws IOException{
@@ -44,10 +44,9 @@ public class DeletarRegistroBaseDados extends SalvarAlteracoes {
                 if(Integer.parseInt(dadoslinha[0]) ==  this.id_deletar){
                     this.id_deletado = Integer.parseInt(dadoslinha[0]);
                     continue;
-
-                }else{
-                    this.todos_dados +=  linha + "\n";	
                 }
+                
+                this.todos_dados +=  linha + "\n";	
             }
             BufferLeitura.close();
             this.falha = false;

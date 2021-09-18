@@ -32,17 +32,16 @@ public class LoginUsuario {
 
             String usuario = dadosUsuario[0][1];
             String senha = dadosUsuario[0][2];
-        
             //System.out.println(usuario);
 
             if(usuario.equals(this.user)  && senha.equals(this.senha) ){
-            this.retornoLogin =  Integer.parseInt(dadosUsuario[0][0]);
+                this.retornoLogin =  Integer.parseInt(dadosUsuario[0][0]);
 
             }else{
-                this.retornoLogin = 0;
+                this.retornoLogin = -1;
             }
         }else{
-            this.retornoLogin = 0;
+            this.retornoLogin = -1;
         }    
 
     }

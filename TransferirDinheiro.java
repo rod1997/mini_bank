@@ -41,7 +41,7 @@ public class TransferirDinheiro {
         int[] colunas_modificar = {3};
         String[] dados_modificacao = {valor_final};
         int id_modificar = Integer.parseInt(id_conta);
-        int id_conta_modificado = new ModificarRegistrosBaseDados(this.nome_arquivo, colunas_modificar, dados_modificacao, id_modificar).modificar();
+        int id_conta_modificado = new ModificarRegistrosBaseDados(id_modificar, colunas_modificar, dados_modificacao,this.nome_arquivo).modificar();
 
     }
     private boolean validarSaldoContaOrigem()throws IOException{

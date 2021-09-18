@@ -1,38 +1,33 @@
 import java.io.IOException;
+import classes_acoes_arquivos.BuscaRegistrosBaseDados;
 
 public class PegaDadosParaInterfaceInicial {
     
     private String id_usuario;
-    private String[] dados_retorno;
+    private String nome_arquivo_contas = "/home/rodrigo/aprendendo_java/arquivosTxt/contas.txt";
+    private String nome_arquivo_clientes = "/home/rodrigo/aprendendo_java/arquivosTxt/clientes.txt";
+
     
-    public PegaDadosParaInterfaceInicial(String id_usuario)throws IOException{
+    public PegaDadosParaInterfaceInicial(String id_usuario){
 
         this.id_usuario = id_usuario;
-        this.getDadosParaInterface();
 
     }
-    public String[] getDadosInterface(){
-        return this.dados_retorno;
-    }
-    private void getDadosParaInterface()throws IOException{
+    public TodosDados retornaTodosDados()throws IOException{
 
-        String[] dadosConta = new ContaCrud("",this.id_usuario,"","").dadosContaIdUsuario();
+        BuscaRegistrosBaseDados obj_busca = new BuscaRegistrosBaseDados(1,this.id_usuario, this.nome_arquivo_contas);
 
-        String id_cliente = dadosConta[2];
-        String[] dadosCliente = new ClienteCrud(id_cliente,"").lerDadosCliente();
+        String[] dados_conta = obj_busca.getResultados()[0];
 
-        String saldo = dadosConta[3];
-        String nome_cliente = dadosCliente[1];
-        String id_conta = dadosConta[0];
+        String id_cliente = dados_conta[2];
 
-        String[] dados = {
-            id_conta,
-            id_cliente,
-            nome_cliente,
-            saldo
-        };
-        this.dados_retorno = dados;
+        BuscaRegistrosBaseDados obj_busca2 = new BuscaRegistrosBaseDados(0,id_cliente, this.nome_arquivo_clientes);
 
+        String[] dados_cliente = obj_busca2.getResultados()[0];
+
+        TodosDados objDados = new TodosDados(Integer.parseInt(dados_conta[0]), Integer.parseInt(dados_conta[1]), Integer.parseInt(id_cliente), dados_cliente[1], Float.parseFloat(dados_conta[3]));
+
+        return objDados;
     }
 
 }
