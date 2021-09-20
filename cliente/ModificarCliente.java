@@ -7,7 +7,7 @@ public class ModificarCliente {
 
     private int id_modificar;
     private String nome;
-    private String nome_arquivo = "/home/rodrigo/aprendendo_java/arquivosTxt/clientes.txt";
+    private String nome_arquivo = System.getProperty("user.dir")+"/arquivos_txt/clientes.txt";
 
     public ModificarCliente(String nome){
 

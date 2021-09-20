@@ -4,8 +4,8 @@ import classes_acoes_arquivos.BuscaRegistrosBaseDados;
 public class PegaDadosParaInterfaceInicial {
     
     private String id_usuario;
-    private String nome_arquivo_contas = "/home/rodrigo/aprendendo_java/arquivosTxt/contas.txt";
-    private String nome_arquivo_clientes = "/home/rodrigo/aprendendo_java/arquivosTxt/clientes.txt";
+    private String nome_arquivo_contas = System.getProperty("user.dir")+"/arquivos_txt/contas.txt";
+    private String nome_arquivo_clientes = System.getProperty("user.dir")+"/arquivos_txt/clientes.txt";
 
     
     public PegaDadosParaInterfaceInicial(String id_usuario){

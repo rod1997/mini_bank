@@ -12,7 +12,7 @@ public class ModificarConta {
     private int id_cliente;
     private int id_usuario;
 
-    private String nome_arquivo = "/home/rodrigo/aprendendo_java/arquivosTxt/contas.txt";
+    private String nome_arquivo = System.getProperty("user.dir")+"/arquivos_txt/contas.txt";
 
     public ModificarConta(int id_modificar, int id_cliente, int id_usuario){
 

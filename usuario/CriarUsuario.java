@@ -7,7 +7,7 @@ public class CriarUsuario {
 
     private String user;
     private String senha;
-    private String nome_arquivo = "/home/rodrigo/aprendendo_java/arquivosTxt/usuarios.txt";
+    private String nome_arquivo = System.getProperty("user.dir")+"/arquivos_txt/usuarios.txt";
 
     public CriarUsuario(String user, String senha){
 

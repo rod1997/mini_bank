@@ -12,7 +12,7 @@ public class ModificarUsuario {
     private String user;
     private String senha;
 
-    private String nome_arquivo = "/home/rodrigo/aprendendo_java/arquivosTxt/contas.txt";
+    private String nome_arquivo = System.getProperty("user.dir")+"/arquivos_txt/contas.txt";
 
     public ModificarUsuario(int id_modificar, String user, String senha){
 

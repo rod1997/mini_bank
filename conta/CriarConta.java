@@ -7,7 +7,7 @@ public class CriarConta {
     private int id_cliente;
     private int id_usuario;
     private float saldo_inicial;
-    private String nome_arquivo = "/home/rodrigo/aprendendo_java/arquivosTxt/contas.txt";
+    private String nome_arquivo = System.getProperty("user.dir")+"/arquivos_txt/contas.txt";
 
     public CriarConta(int id_cliente, int id_usuario, float saldo_inicial){
 

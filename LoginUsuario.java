@@ -7,7 +7,7 @@ public class LoginUsuario {
     private String user;
     private String senha;
     private int retornoLogin;
-    private String nome_arquivo = "/home/rodrigo/aprendendo_java/arquivosTxt/usuarios.txt";
+    private String nome_arquivo = System.getProperty("user.dir")+"/arquivos_txt/usuarios.txt";
 
     public LoginUsuario(String user, String senha)throws IOException{
 
@@ -29,6 +29,8 @@ public class LoginUsuario {
         String[][] dadosUsuario = new BuscaRegistrosBaseDados(coluna_busca, busca, arquivo).getResultados();
 
         if(dadosUsuario[0][0] != "" || dadosUsuario[0][0] == null){
+
+            System.out.println( dadosUsuario[0][1]);
 
             String usuario = dadosUsuario[0][1];
             String senha = dadosUsuario[0][2];

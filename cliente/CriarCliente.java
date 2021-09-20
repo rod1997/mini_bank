@@ -6,7 +6,7 @@ import classes_acoes_arquivos.AdicionarRegistroBaseDados;
 public class CriarCliente {
 
     private String nome;
-    private String nome_arquivo = "/home/rodrigo/aprendendo_java/arquivosTxt/clientes.txt";
+    private String nome_arquivo =System.getProperty("user.dir")+"/arquivos_txt/clientes.txt";
 
     public CriarCliente(String nome){
 

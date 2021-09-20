@@ -8,7 +8,7 @@ public class TransferirDinheiro {
     private TodosDados dados_conta_origem;
     private String[] dados_conta_destino;
 
-    private String  nome_arquivo = "/home/rodrigo/aprendendo_java/arquivosTxt/contas.txt";
+    private String  nome_arquivo = "C:\\Users\\DEV-04\\Pictures\\mini_bank\\arquivos_txt\\contas.txt";
 
     private float valor_tranferencia;
 
