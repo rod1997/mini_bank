@@ -17,8 +17,8 @@ public class AcessarConta {
             //NumberFormat z = NumberFormat.getCurrencyInstance();
             //System.out.println("Seu saldo: "+ z.format(Integer.parseInt(dadosConta[3])));
 
-            //new MenuInicial(objTodosDados).MenuInterativo();
-
+            MenuUsuarioLogado.MenuInterativo(objTodosDados);
+            
         }else{
             System.out.println("Usuario ou senha incorretos!");
 

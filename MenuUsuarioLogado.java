@@ -1,20 +1,21 @@
 import java.text.NumberFormat;
 import java.io.IOException;
+import input_output.In;
 
 public class MenuUsuarioLogado {
 
-    public void MenuInterativo()throws IOException{
+    public static void MenuInterativo(TodosDados dados)throws IOException{
 
         System.out.println("Bem vindo ao banco");
-        System.out.println("Ola," + nome_cliente);
+        System.out.println("Ola," + dados.nome);
         NumberFormat z = NumberFormat.getCurrencyInstance();
-        System.out.println("Seu saldo: "+ z.format(Integer.parseInt(saldo)));
+        System.out.println("Seu saldo: "+ z.format(dados.saldo));
 
-        String opcao =  BancoZeroTaxa.inputUsuario("[1] transferir, [5]sair");
+        String opcao =  In.input("[1] transferir, [5]sair");
 
         switch (opcao) {
             case "1":
-                this.transferencia();
+                transferencia(dados);
                 break;
         
             default:
@@ -22,23 +23,23 @@ public class MenuUsuarioLogado {
         }
 
     }
-    public void transferencia()throws IOException{
+    public static void transferencia(TodosDados dados_conta_origem)throws IOException{
 
-        String valor_tranferencia =  BancoZeroTaxa.inputUsuario("Digite o valor a transferir: ");
-        String id_conta_destino =  BancoZeroTaxa.inputUsuario("digite a conta destino: ");
+        String valor_tranferencia =  In.input("Digite o valor a transferir: ");
+        String id_conta_destino =  In.input("digite a conta destino: ");
 
         System.out.println("-------- DADOS DA TRANSACAO ------\n");
         System.out.println("");
         System.out.println("Conta destino: "+ id_conta_destino);
-        System.out.println("Nome beneficiario: NULL ");
+        System.out.println("Nome beneficiario: ");
         System.out.println("Valor a transferir: "+ valor_tranferencia);
 
-        boolean retornoTransacao = new TransferirDinheiro(this.id_conta, id_conta_destino, Integer.parseInt(valor_tranferencia)).transferir();
+        boolean retornoTransacao = new TransferirDinheiro(dados_conta_origem, Integer.parseInt(id_conta_destino), Float.parseFloat(valor_tranferencia)).transferir();
 
         if(retornoTransacao){
-            System.out.println("Vtransacao efetuada com sucesso");
+            System.out.println("Transacao efetuada com sucesso");
         }else{
-            System.out.println("operacao nao concluida");
+            System.out.println("Operacao nao concluida");
 
         }
 

@@ -3,58 +3,65 @@ import classes_acoes_arquivos.*;
 
 public class TransferirDinheiro {
 
-    private String id_conta_origem;
-    private String id_conta_destino;
-    private String[] dados_conta_origem;
+    private int id_conta_origem;
+    private int id_conta_destino;
+    private TodosDados dados_conta_origem;
     private String[] dados_conta_destino;
 
     private String  nome_arquivo = "/home/rodrigo/aprendendo_java/arquivosTxt/contas.txt";
 
-    private int valor_tranferencia;
+    private float valor_tranferencia;
 
-    TransferirDinheiro(String id_conta_origem ,String id_conta_destino, int valor_tranferencia){
+    TransferirDinheiro(TodosDados dados_conta_logada ,int id_conta_destino, float valor_tranferencia){
 
         this.id_conta_destino = id_conta_destino;
-        this.id_conta_origem = id_conta_origem;
+        this.id_conta_origem = dados_conta_logada.id_conta;
+        this.dados_conta_origem = dados_conta_logada;
         this.valor_tranferencia = valor_tranferencia;
     }
     public boolean transferir()throws IOException{
 
         if(validarSaldoContaOrigem()){
 
-            int saldo_conta_origem = Integer.parseInt(dados_conta_origem[3]);
-            int saldo_conta_destino = Integer.parseInt(dados_conta_destino[3]);
+            float saldo_conta_origem = dados_conta_origem.saldo;
+            float saldo_conta_destino = Float.parseFloat(dados_conta_destino[3]);
 
-            int valor_diminuir_conta_origem = saldo_conta_origem - valor_tranferencia; 
-            int valor_acrescentar_conta_destino = saldo_conta_destino + valor_tranferencia; 
+            float valor_diminuir_conta_origem = saldo_conta_origem - valor_tranferencia; 
+            float valor_acrescentar_conta_destino = saldo_conta_destino + valor_tranferencia; 
 
-            modificaSaldoConta(this.id_conta_origem, Integer.toString(valor_diminuir_conta_origem));
-            modificaSaldoConta(this.id_conta_destino, Integer.toString(valor_acrescentar_conta_destino));
+            modificaSaldoConta(this.id_conta_origem, Float.toString(valor_diminuir_conta_origem));
+            modificaSaldoConta(this.id_conta_destino, Float.toString(valor_acrescentar_conta_destino));
 
             return true;
 
         }
         return false;
     }
-    private void modificaSaldoConta(String id_conta, String valor_final) throws IOException{
+    private boolean validarSaldoContaOrigem()throws IOException{
+        
+        float saldoContaOrigem = this.dados_conta_origem.saldo;
+        
+        if(saldoContaOrigem >= valor_tranferencia ){
+
+            try{
+                int coluna_saldo = 0;
+                String busca = Integer.toString(this.id_conta_destino);
+                String[][] dadosContaDestino = new BuscaRegistrosBaseDados(coluna_saldo,busca, this.nome_arquivo).getResultados();
+                this.dados_conta_destino = dadosContaDestino[0];
+                return true; 
+
+            }catch(Error | Exception  e){
+                return false;
+            }    
+        }
+        return false;
+    }
+    private void modificaSaldoConta(int id_conta, String valor_final) throws IOException{
 
         int[] colunas_modificar = {3};
         String[] dados_modificacao = {valor_final};
-        int id_modificar = Integer.parseInt(id_conta);
+        int id_modificar = id_conta;
         int id_conta_modificado = new ModificarRegistrosBaseDados(id_modificar, colunas_modificar, dados_modificacao,this.nome_arquivo).modificar();
 
-    }
-    private boolean validarSaldoContaOrigem()throws IOException{
-
-        String[] dadosContaOrigem = new ContaCrud(id_conta_origem, "", "", "").dadosConta();
-        int saldoContaOrigem = Integer.parseInt(dadosContaOrigem[3]);
-
-        if(saldoContaOrigem >= valor_tranferencia ){
-            String[] dadosContaDestino = new ContaCrud(id_conta_destino, "", "", "").dadosConta();
-            this.dados_conta_destino = dadosContaDestino;
-            this.dados_conta_origem = dadosContaOrigem;
-            return true; 
-        }
-        return false;
     }
 }
